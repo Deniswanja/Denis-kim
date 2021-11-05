@@ -1,0 +1,242 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled3.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyNIRwK73hf0jBqtSQMNn37l",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Deniswanja/Denis-kim/blob/master/Decition%20tree%20clasification\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "xGxgMZ6fiFFZ"
+      },
+      "source": [
+        "#Importing required libraries\n",
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.tree import DecisionTreeClassifier\n",
+        "from sklearn.model_selection import train_test_split"
+      ],
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pt3kNEJHiPNF",
+        "outputId": "6bce8e0b-981a-4841-df7a-eaaf169a0911"
+      },
+      "source": [
+        "#Loading the iris data\n",
+        "data = load_iris()\n",
+        "print('Classes to predict: ', data.target_names)"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Classes to predict:  ['setosa' 'versicolor' 'virginica']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "h62Fg4Fmijjm",
+        "outputId": "b118d9a4-9488-43a0-f4a6-2090e025f801"
+      },
+      "source": [
+        "#Extracting data attributes\n",
+        "X = data.data\n",
+        "### Extracting target/ class labels\n",
+        "y = data.target\n",
+        "\n",
+        "print('Number of examples in the data:', X.shape[0])"
+      ],
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Number of examples in the data: 150\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8trSZIc0jh9w",
+        "outputId": "0f4a879f-9274-4141-917c-4955fe061155"
+      },
+      "source": [
+        "#First four rows in the variable 'X'\n",
+        "X[:4]\n"
+      ],
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([[5.1, 3.5, 1.4, 0.2],\n",
+              "       [4.9, 3. , 1.4, 0.2],\n",
+              "       [4.7, 3.2, 1.3, 0.2],\n",
+              "       [4.6, 3.1, 1.5, 0.2]])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yeCpFanPjp3P"
+      },
+      "source": [
+        "#Using the train_test_split to create train and test sets.\n",
+        "X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 47, test_size = 0.25)"
+      ],
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "mfnQHxD_iwb0"
+      },
+      "source": [
+        "#Importing the Decision tree classifier from the sklearn library.\n",
+        "from sklearn.tree import DecisionTreeClassifier\n",
+        "clf = DecisionTreeClassifier(criterion = 'entropy')"
+      ],
+      "execution_count": 10,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "4Jp6FzPEi86j"
+      },
+      "source": [
+        "#Training the decision tree classifier. \n",
+        "clf.fit(X_train, y_train)\n",
+        "\n",
+        "#Output:\n",
+        "Out:DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=None,\n",
+        "            max_features=None, max_leaf_nodes=None,\n",
+        "            min_impurity_decrease=0.0, min_impurity_split=None,\n",
+        "            min_samples_leaf=1, min_samples_split=2,\n",
+        "            min_weight_fraction_leaf=0.0, presort=False, random_state=None,\n",
+        "            splitter='best')"
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "4MVPyHPqj65M"
+      },
+      "source": [
+        "#Predicting labels on the test set.\n",
+        "y_pred =  clf.predict(X_test)"
+      ],
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XYQ66TZkkB3U",
+        "outputId": "84396b7c-9c19-4810-ab53-f26d59ea4f80"
+      },
+      "source": [
+        "#Importing the accuracy metric from sklearn.metrics library\n",
+        "\n",
+        "from sklearn.metrics import accuracy_score\n",
+        "print('Accuracy Score on train data: ', accuracy_score(y_true=y_train, y_pred=clf.predict(X_train)))\n",
+        "print('Accuracy Score on test data: ', accuracy_score(y_true=y_test, y_pred=y_pred))"
+      ],
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Accuracy Score on train data:  1.0\n",
+            "Accuracy Score on test data:  0.9473684210526315\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZD3W9Tm5kJz2",
+        "outputId": "01f28872-1f3b-42b1-8020-a35b41f3985d"
+      },
+      "source": [
+        "clf = DecisionTreeClassifier(criterion='entropy', min_samples_split=50)\n",
+        "clf.fit(X_train, y_train)\n",
+        "print('Accuracy Score on train data: ', accuracy_score(y_true=y_train, y_pred=clf.predict(X_train)))\n",
+        "print('Accuracy Score on the test data: ', accuracy_score(y_true=y_test, y_pred=clf.predict(X_test)))"
+      ],
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Accuracy Score on train data:  0.9553571428571429\n",
+            "Accuracy Score on the test data:  0.9736842105263158\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
